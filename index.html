@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>UI-Challenge</title>
+    <script src="bower_components/angular/angular.min.js" type="application/javascript"></script>
+    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+    <script src="app.js"></script>
+    <script src="services/deepSpace.fct.js"></script>
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+</head>
+<body>
+<div class="container" ng-controller="deepSpace.ctrl as ctrl">
+
+    <div class="row">
+        <div class="col-md-6">
+            <h1>Available Cast</h1>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="input-group">
+                        <input type="text" ng-model="filterText" class="form-control" placeholder="Search for...">
+                    </div>
+                </div>
+            </div>
+            <table class="table">
+                <tr ng-repeat="cast in ctrl.castList | filter:filterText">
+                    <td>
+                        <img src={{cast.Icon.URL}} ng-if="cast.Icon.URL!=''"/>
+                        <img src="http://vector-magz.com/wp-content/uploads/2013/11/photo-not-available-clip-art3-280x168.png"
+                             ng-if="cast.Icon.URL===''"/>
+                    </td>
+                    <td>
+                        <p ng-bind-html="cast.Result"></p>
+                    </td>
+                    <td>
+                        <button type="button" ng-click="ctrl.removeRow($index)">Add</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="col-md-6">
+            <h1>Selected Cast</h1>
+            <table class="table">
+                <tr ng-repeat="cast in ctrl.selectedCastList">
+                    <td>
+                        <img src={{cast.Icon.URL}} ng-if="cast.Icon.URL!=''"/>
+                        <img src="http://vector-magz.com/wp-content/uploads/2013/11/photo-not-available-clip-art3-280x168.png"
+                             ng-if="cast.Icon.URL===''"/>
+                    </td>
+                    <td>
+                        <p ng-bind-html="cast.Result"></p>
+                    </td>
+                    <td>
+                        <button type="button" ng-click="ctrl.revertRow($index)">Remove</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
