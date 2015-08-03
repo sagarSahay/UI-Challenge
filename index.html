@@ -22,21 +22,7 @@
                     </div>
                 </div>
             </div>
-            <table class="table">
-                <tr ng-repeat="cast in ctrl.castList | filter:filterText">
-                    <td>
-                        <img src={{cast.Icon.URL}} ng-if="cast.Icon.URL!=''"/>
-                        <img src="http://vector-magz.com/wp-content/uploads/2013/11/photo-not-available-clip-art3-280x168.png"
-                             ng-if="cast.Icon.URL===''"/>
-                    </td>
-                    <td>
-                        <p ng-bind-html="cast.Result"></p>
-                    </td>
-                    <td>
-                        <button type="button" ng-click="ctrl.removeRow($index)">Add</button>
-                    </td>
-                </tr>
-            </table>
+           <cast-template cast-list="ctrl.castList"></cast-template>
         </div>
         <div class="col-md-6">
             <h1>Selected Cast</h1>

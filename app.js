@@ -24,12 +24,16 @@ app.controller("deepSpace.ctrl", function (DeepSpaceFactory) {
 app.directive("castTemplate", function ($sce) {
     return {
         restrict: 'E',
-        scope: {castList: '='},
+        scope: {castList: '=cast-list'},
         templateUrl: 'cast-template.html',
+        controllerAs: 'ctrl',
+        controller:function ($scope, $element, $attrs){
+            $scope.castList;
+        },
         link: function (scope, element, attrs) {
             scope.$watch('castList', function (castList) {
                 if (castList) {
-                    console.log(castList.length);
+                    console.log("coming from directive "+castList.length);
                 }
             });
         }

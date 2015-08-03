@@ -1,13 +1,15 @@
-<div class="container">
-    <div class="row" ng-repeat="cast in castList">
-        <div class="col-md-6">
-            <img src="{{cast.Icon.URL}}" />
-        </div>
-        <div class="col-md-6">
-            {{cast.Result}}
-        </div>
-        <div class="row">
-            <span>{{cast.Text}}</span>
-        </div>
-    </div>
-</div>
+<table class="table">
+    <tr ng-repeat="cast in ctrl.castList">
+        <td>
+            <img src={{cast.Icon.URL}} ng-if="cast.Icon.URL!=''"/>
+            <img src="http://vector-magz.com/wp-content/uploads/2013/11/photo-not-available-clip-art3-280x168.png"
+                 ng-if="cast.Icon.URL===''"/>
+        </td>
+        <td>
+            <p ng-bind-html="cast.Result"></p>
+        </td>
+        <td>
+            <button type="button" ng-click="ctrl.revertRow($index)">Remove</button>
+        </td>
+    </tr>
+</table>
