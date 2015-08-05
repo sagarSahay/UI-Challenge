@@ -6,32 +6,28 @@ var app = angular.module('myApp', ['ngSanitize']);
 
 app.controller("deepSpace.ctrl", function (DeepSpaceFactory) {
     var vm = this;
-    vm.castList = [];
-    vm.selectedCastList = [];
-    DeepSpaceFactory.getAll().then(function (response) {
-        vm.castList = response.data.RelatedTopics;
-    });
-    vm.removeRow = function (index) {
-        vm.selectedCastList.push(vm.castList[index]);
-        vm.castList.splice(index, 1);
-    };
-    vm.revertRow = function (index) {
-        vm.castList.push(vm.selectedCastList[index]);
-        vm.selectedCastList.splice(index, 1);
-    };
 });
 
-app.directive("castTemplate", function ($sce) {
+app.directive("castTemplate", function ($sce, DeepSpaceFactory) {
     return {
         restrict: 'E',
-        scope: {castList: '='},
+        scope: {isOriginal: '='},
         templateUrl: 'cast-template.html',
-        link: function (scope, element, attrs) {
-            scope.$watch('castList', function (castList) {
-                if (castList) {
-                    console.log(castList.length);
-                }
-            });
+        controller: function ($scope) {
+            $scope.list = [];
+            if ($scope.isOriginal === true) {
+                DeepSpaceFactory.getAll().then(function (response) {
+                    $scope.list = response.data.RelatedTopics
+                });
+            } else {
+                $scope.list = DeepSpaceFactory.selectedCastList;
+            }
+            $scope.add = function (index) {
+                DeepSpaceFactory.add(index);
+            };
+            $scope.remove = function (index) {
+                DeepSpaceFactory.remove(index);
+            }
         }
     }
 });
