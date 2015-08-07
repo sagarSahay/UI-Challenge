@@ -1,5 +1,16 @@
+<div class="row">
+    <div class="col-lg-6">
+        <div class="input-group">
+            <input type="text" ng-model="filterText.Text" class="form-control" placeholder="Search for...">
+        </div>
+    </div>
+</div>
 <table class="table">
-    <tr ng-repeat="cast in list">
+    <tr ng-repeat="cast in list | filter:filterText ">
+
+        <td>
+            <input type="checkbox" ng-model="isChecked">
+        </td>
         <td>
             <img ng-src="{{cast.Icon.URL}}" ng-if="cast.Icon.URL!=''"/>
             <img src="http://vector-magz.com/wp-content/uploads/2013/11/photo-not-available-clip-art3-280x168.png"
